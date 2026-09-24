@@ -35,6 +35,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.25;
+renderer.shadowMap.enabled = !isMobile;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 container.appendChild(renderer.domElement);
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -51,6 +53,8 @@ scene.add(ambientLight);
 
 const treeLight = new THREE.PointLight(0xffb6c1, 2.5, 45);
 treeLight.position.set(0, 8, 0);
+treeLight.castShadow = !isMobile;
+treeLight.shadow.mapSize.set(1024,1024);
 scene.add(treeLight);
 
 const warmLight = new THREE.PointLight(0xffaa33, 2.0, 30);
@@ -58,9 +62,16 @@ warmLight.position.set(0, -2, 0);
 scene.add(warmLight);
 
 // MOON, CLOUDS & OCCASIONAL SHOOTING STAR
+function createMoonTexture(){
+  const canvas=document.createElement("canvas");canvas.width=512;canvas.height=512;const ctx=canvas.getContext("2d");
+  const base=ctx.createRadialGradient(180,150,20,256,256,260);base.addColorStop(0,"#fff9dd");base.addColorStop(.68,"#ead39b");base.addColorStop(1,"#a77b50");ctx.fillStyle=base;ctx.fillRect(0,0,512,512);
+  const seeded=[ [105,125,34],[335,110,25],[260,245,42],[390,330,31],[145,365,48],[310,410,18],[70,270,22] ];
+  seeded.forEach(([x,y,r])=>{const g=ctx.createRadialGradient(x-r*.2,y-r*.2,2,x,y,r);g.addColorStop(0,"rgba(115,79,55,.28)");g.addColorStop(.72,"rgba(150,105,69,.14)");g.addColorStop(1,"rgba(255,245,210,.08)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();});
+  const texture=new THREE.CanvasTexture(canvas);texture.encoding=THREE.sRGBEncoding;return texture;
+}
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(isMobile ? 5.5 : 7, 40, 40),
-  new THREE.MeshBasicMaterial({ color: 0xffe7a3 }),
+  new THREE.MeshStandardMaterial({ map:createMoonTexture(), emissive:0xb18452, emissiveIntensity:.35, roughness:.9 }),
 );
 moon.position.set(-25, 27, -58);
 scene.add(moon);
@@ -157,6 +168,7 @@ const topMat = new THREE.MeshStandardMaterial({
 });
 const topMesh = new THREE.Mesh(topGeo, topMat);
 topMesh.position.y = 3.6;
+topMesh.receiveShadow = true;
 islandGroup.add(topMesh);
 
 // BỆ MẶT ĐÁ NHỎ & ĐÁ TẢNG RẢI RÁC ÍT HƠN
@@ -731,6 +743,57 @@ for (let i = 0; i < lanternCount; i++) {
   lanternsGroup.add(lantern);
   lanterns.push(lantern);
   interactiveObjects.push(hitMesh);
+}
+
+// HIGH-FIDELITY GLB ASSETS WITH PROCEDURAL FALLBACKS
+if (THREE.GLTFLoader) {
+  const gltfLoader = new THREE.GLTFLoader();
+  gltfLoader.load("./assets/models/ancient-oak.glb", (gltf) => {
+    const model = gltf.scene;
+    const bounds = new THREE.Box3().setFromObject(model);
+    const size = bounds.getSize(new THREE.Vector3());
+    const scale = 9.5 / Math.max(size.y, .001);
+    model.scale.setScalar(scale);
+    bounds.setFromObject(model);
+    const center = bounds.getCenter(new THREE.Vector3());
+    model.position.set(-center.x, -bounds.min.y, -center.z);
+    model.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = !isMobile;
+        child.receiveShadow = true;
+        if (child.material) {
+          child.material = child.material.clone();
+          child.material.roughness = Math.max(.55, child.material.roughness ?? .7);
+        }
+      }
+    });
+    treeGroup.children.slice(0, 1 + mainBranchCount).forEach((child) => { if (child.isMesh) child.visible = false; });
+    treeGroup.add(model);
+  }, undefined, () => { console.warn("Using procedural tree fallback."); });
+
+  gltfLoader.load("./assets/models/silk-lantern.glb", (gltf) => {
+    lanterns.filter((lantern) => lantern.userData.styleIndex === 0).forEach((lantern) => {
+      const model = gltf.scene.clone(true);
+      const bounds = new THREE.Box3().setFromObject(model);
+      const size = bounds.getSize(new THREE.Vector3());
+      const scale = 1.7 / Math.max(size.y, .001);
+      model.scale.setScalar(scale);
+      bounds.setFromObject(model);
+      const center = bounds.getCenter(new THREE.Vector3());
+      model.position.set(-center.x, -bounds.getCenter(new THREE.Vector3()).y, -center.z);
+      const accent = lantern.userData.bodyMat.color;
+      model.traverse((child) => {
+        if (!child.isMesh) return;
+        child.castShadow = !isMobile;
+        child.material = child.material.clone();
+        if (child.material.color) child.material.color.lerp(accent, .38);
+        if (child.material.emissive) { child.material.emissive.copy(accent); child.material.emissiveIntensity = .32; }
+      });
+      lantern.children[0].visible = false;
+      lantern.add(model);
+      lantern.userData.glbModel = model;
+    });
+  }, undefined, () => { console.warn("Using procedural lantern fallback."); });
 }
 
 // FALLING PETALS & STARS
