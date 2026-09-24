@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080310">
+    <title>Đêm Trăng Gửi Cậu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css.css">
+</head>
+<body>
+    <div id="webgl-container" aria-hidden="true"></div><div class="scene-vignette" aria-hidden="true"></div>
+    <section class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
+        <div class="welcome-moon" aria-hidden="true"></div><div class="welcome-content">
+            <p class="eyebrow">Một món quà nhỏ dưới ánh trăng</p><h1 id="welcomeTitle">Đêm Trăng <span>Gửi Cậu</span></h1>
+            <p>Có 7 lời chúc đang được giấu trong những chiếc đèn lồng. Hãy chạm vào từng chiếc để khám phá nhé.</p>
+            <button class="primary-btn" id="startBtn">Bắt đầu khám phá</button><button class="text-btn" id="skipIntroBtn">Vào thẳng khu vườn</button>
+        </div>
+    </section>
+    <header class="hud" aria-label="Trạng thái khám phá">
+        <div class="brand-mark"><span class="brand-moon" aria-hidden="true"></span><div><span>Đêm trăng</span><strong>Gửi Cậu</strong></div></div>
+        <div class="progress-card" aria-live="polite"><div class="progress-copy"><span>Hành trình lời chúc</span><strong id="progressText">0 / 7</strong></div><div class="progress-track"><span id="progressBar"></span></div></div>
+    </header>
+    <nav class="top-bar" aria-label="Điều khiển cảnh">
+        <button class="icon-btn" id="audio-btn" title="Bật nhạc" aria-label="Bật nhạc" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 9l11-2M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm11-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg></button>
+        <button class="icon-btn" id="reset-cam-btn" title="Góc nhìn ban đầu" aria-label="Đưa camera về góc nhìn ban đầu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6"/></svg></button>
+        <button class="icon-btn" id="helpBtn" title="Hướng dẫn" aria-label="Mở hướng dẫn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.3 2.3 0 1 1 3.3 2.1c-.8.5-1.1 1-1.1 1.9M12 17h.01"/></svg></button>
+        <button class="icon-btn" id="tourBtn" title="Tự động tham quan" aria-label="Bật chế độ tự động tham quan" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1 0 2-4.9M5 5v5h5"/><path d="m11 9 5 3-5 3Z"/></svg></button>
+        <button class="icon-btn" id="fullscreenBtn" title="Toàn màn hình" aria-label="Bật chế độ toàn màn hình"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
+    </nav>
+    <div class="click-hint" id="clickHint"><span aria-hidden="true"></span> Chạm vào một chiếc đèn lồng</div>
+    <div class="wish-modal" id="wishModal" role="dialog" aria-modal="true" aria-labelledby="wishTitle" aria-hidden="true"><article class="wish-card">
+        <div class="card-ornament ornament-left" aria-hidden="true">☾</div><div class="card-ornament ornament-right" aria-hidden="true">✦</div>
+        <button class="close-btn" id="closeWishBtn" aria-label="Đóng lời chúc"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        <p class="card-kicker">Lời chúc dưới trăng</p><h2 id="wishTitle">Dành riêng cho cậu</h2>
+        <div class="wish-image-container"><img id="wishImage" src="" alt="Kỷ niệm dưới ánh trăng"></div><p id="wishText"></p>
+        <div class="card-footer"><span>✦ Trung Thu An Lành ✦</span><strong id="wishNumber">01 / 07</strong></div>
+    </article></div>
+    <div class="info-modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" aria-hidden="true"><div class="info-card">
+        <button class="close-btn" data-close="helpModal" aria-label="Đóng hướng dẫn">×</button><p class="eyebrow">Cách khám phá</p><h2 id="helpTitle">Đi tìm 7 lời chúc</h2>
+        <p>Chạm vào đèn lồng để mở lời chúc. Cậu cũng có thể chạm vào thỏ ngọc và cá chép để tìm hiệu ứng bí mật. Kéo để xoay cảnh, cuộn hoặc chụm để phóng to.</p><p class="keyboard-note">Bàn phím: <kbd>Enter</kbd> mở lời chúc tiếp theo · <kbd>Esc</kbd> đóng thiệp</p>
+    </div></div>
+    <div class="completion-modal" id="completionModal" role="dialog" aria-modal="true" aria-labelledby="completionTitle" aria-hidden="true"><div class="completion-card">
+        <div class="completion-glow" aria-hidden="true"></div><p class="eyebrow">Cậu đã tìm thấy tất cả</p><h2 id="completionTitle">Trăng đã tròn rồi</h2>
+        <p>Bảy chiếc đèn, bảy lời chúc — mong mọi dịu dàng và may mắn đều sẽ tìm đến cậu.</p><button class="primary-btn" id="continueBtn">Ngắm khu vườn thêm chút nữa</button>
+    </div></div>
+    <div class="sr-only" id="liveRegion" aria-live="polite"></div><audio id="bgm" loop preload="metadata" src="./assets/1.mp3"></audio>
+    <script src="./assets/three.min.js"></script><script src="./assets/OrbitControls.js"></script><script src="./assets/script.js"></script>
+</body>
+</html>
