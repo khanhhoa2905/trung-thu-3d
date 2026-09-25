@@ -481,62 +481,105 @@ scene.add(lanternsGroup);
 const lanterns = [];
 const interactiveObjects = [];
 
+const photoPath = (name, size = "full") => `./assets/photos/${size}/${name}.webp`;
 const wishList = [
   {
     text: "Chúc em luôn xinh đẹp, rạng rỡ và dịu dàng như ánh trăng đêm rằm.",
-    img: "./assets/790505774_1969780453639423_2351601990590820278_n.jpg",
+    title: "Rạng rỡ",
+    chapter: "Chương I · Những điều dịu dàng",
+    img: photoPath("790505774_1969780453639423_2351601990590820278_n"),
+    thumb: photoPath("790505774_1969780453639423_2351601990590820278_n", "thumbs"),
   },
   {
     text: "Mong mỗi ngày của em đều bắt đầu bằng nụ cười và kết thúc bằng sự bình yên.",
-    img: "./assets/748648642_1912929969324472_4283812412863960251_n.jpg",
+    title: "Bình yên",
+    chapter: "Chương I · Những điều dịu dàng",
+    img: photoPath("748648642_1912929969324472_4283812412863960251_n"),
+    thumb: photoPath("748648642_1912929969324472_4283812412863960251_n", "thumbs"),
   },
   {
     text: "Chúc em có thật nhiều chuyến đi đáng nhớ và luôn tìm thấy bình yên trong tim.",
-    img: "./assets/562398733_1705818910035580_4055134451407334506_n.jpg",
+    title: "Những chuyến đi",
+    chapter: "Chương I · Những điều dịu dàng",
+    img: photoPath("562398733_1705818910035580_4055134451407334506_n"),
+    thumb: photoPath("562398733_1705818910035580_4055134451407334506_n", "thumbs"),
   },
   {
     text: "Chúc em luôn tự tin, duyên dáng và tỏa sáng theo cách riêng của mình.",
-    img: "./assets/547510736_1677034496247355_7501700853689931103_n.jpg",
+    title: "Tỏa sáng",
+    chapter: "Chương I · Những điều dịu dàng",
+    img: photoPath("547510736_1677034496247355_7501700853689931103_n"),
+    thumb: photoPath("547510736_1677034496247355_7501700853689931103_n", "thumbs"),
   },
   {
     text: "Mong những điều em ước sẽ dần thành hiện thực, mỗi ngày đều có thêm một niềm vui.",
-    img: "./assets/544501909_1672389500045188_5411464870582497815_n.jpg",
+    title: "Điều ước",
+    chapter: "Chương I · Những điều dịu dàng",
+    img: photoPath("544501909_1672389500045188_5411464870582497815_n"),
+    thumb: photoPath("544501909_1672389500045188_5411464870582497815_n", "thumbs"),
   },
   {
     text: "Chúc em luôn giữ được nụ cười trong veo và gặp thật nhiều người yêu thương mình.",
-    img: "./assets/518293069_1631798874104251_5719775899826623978_n.jpg",
+    title: "Nụ cười",
+    chapter: "Chương II · Tuổi trẻ của em",
+    img: photoPath("518293069_1631798874104251_5719775899826623978_n"),
+    thumb: photoPath("518293069_1631798874104251_5719775899826623978_n", "thumbs"),
   },
   {
     text: "Chúc em một mùa Trung Thu ấm áp, hạnh phúc và luôn có người cùng sẻ chia.",
-    img: "./assets/513676360_1621258948491577_1100841702924691780_n.jpg",
+    title: "Trung Thu ấm áp",
+    chapter: "Chương II · Tuổi trẻ của em",
+    img: photoPath("513676360_1621258948491577_1100841702924691780_n"),
+    thumb: photoPath("513676360_1621258948491577_1100841702924691780_n", "thumbs"),
   },
   {
     text: "Mong em luôn mạnh mẽ trước những thử thách và dịu dàng với chính mình.",
-    img: "./assets/503266223_1602504610367011_56706203974894414_n.jpg",
+    title: "Mạnh mẽ",
+    chapter: "Chương II · Tuổi trẻ của em",
+    img: photoPath("503266223_1602504610367011_56706203974894414_n"),
+    thumb: photoPath("503266223_1602504610367011_56706203974894414_n", "thumbs"),
   },
   {
     text: "Chúc con đường em chọn luôn có ánh sáng, may mắn và những người tốt đồng hành.",
-    img: "./assets/480575865_1532812224002917_1857782877816294012_n.jpg",
+    title: "Con đường phía trước",
+    chapter: "Chương II · Tuổi trẻ của em",
+    img: photoPath("480575865_1532812224002917_1857782877816294012_n"),
+    thumb: photoPath("480575865_1532812224002917_1857782877816294012_n", "thumbs"),
   },
   {
     text: "Mong em được làm những điều mình yêu và yêu những ngày tháng mình đang sống.",
-    img: "./assets/471161303_1494252967858843_8963984754878209320_n.jpg",
+    title: "Những điều em yêu",
+    chapter: "Chương II · Tuổi trẻ của em",
+    img: photoPath("471161303_1494252967858843_8963984754878209320_n"),
+    thumb: photoPath("471161303_1494252967858843_8963984754878209320_n", "thumbs"),
   },
   {
     text: "Chúc em luôn được lắng nghe, được thấu hiểu và được trân trọng thật lòng.",
-    img: "./assets/470887071_1494248127859327_4035545798189428792_n.jpg",
+    title: "Được trân trọng",
+    chapter: "Chương III · Những ngày phía trước",
+    img: photoPath("470887071_1494248127859327_4035545798189428792_n"),
+    thumb: photoPath("470887071_1494248127859327_4035545798189428792_n", "thumbs"),
   },
   {
     text: "Mong tuổi trẻ của em có thật nhiều kỷ niệm đẹp để sau này nhớ lại vẫn mỉm cười.",
-    img: "./assets/469927240_1487721968511943_8762961242817712732_n.jpg",
+    title: "Tuổi trẻ",
+    chapter: "Chương III · Những ngày phía trước",
+    img: photoPath("469927240_1487721968511943_8762961242817712732_n"),
+    thumb: photoPath("469927240_1487721968511943_8762961242817712732_n", "thumbs"),
   },
   {
     text: "Chúc em sức khỏe, an nhiên và luôn giữ trong tim một khoảng trời đầy hy vọng.",
-    img: "./assets/469911422_1487351158549024_3646512257413966043_n.jpg",
+    title: "An nhiên",
+    chapter: "Chương III · Những ngày phía trước",
+    img: photoPath("469911422_1487351158549024_3646512257413966043_n"),
+    thumb: photoPath("469911422_1487351158549024_3646512257413966043_n", "thumbs"),
   },
   {
     text: "Lời chúc cuối cùng: mong em luôn hạnh phúc, không chỉ đêm nay mà trong mọi ngày phía trước.",
-    img: "./assets/469738291_1487354625215344_1751052271147498175_n.jpg",
+    title: "Hạnh phúc dài lâu",
+    chapter: "Chương III · Những ngày phía trước",
+    img: photoPath("469738291_1487354625215344_1751052271147498175_n"),
+    thumb: photoPath("469738291_1487354625215344_1751052271147498175_n", "thumbs"),
   },
 ];
 
@@ -754,13 +797,17 @@ for (let i = 0; i < lanternCount; i++) {
     initialX: lantern.position.x,
     initialZ: lantern.position.z,
     wish: wishData.text,
+    title: wishData.title,
+    chapter: wishData.chapter,
     imgUrl: wishData.img,
+    thumbUrl: wishData.thumb,
     wishIndex: i % wishList.length,
     bodyMat,
     glow,
     styleIndex: i % 5,
     visited: false,
     id: i,
+    paletteIndex: i % lanternPalettes.length,
   };
 
   const sc = 0.75 + Math.random() * 0.5;
@@ -954,22 +1001,33 @@ let autoTour = false;
 
 const wishModal = document.getElementById("wishModal");
 const wishText = document.getElementById("wishText");
+const wishTitle = document.getElementById("wishTitle");
+const wishChapter = document.getElementById("wishChapter");
 const wishImage = document.getElementById("wishImage");
 const wishNumber = document.getElementById("wishNumber");
 const closeWishBtn = document.getElementById("closeWishBtn");
 const welcomeScreen = document.getElementById("welcomeScreen");
 const helpModal = document.getElementById("helpModal");
 const completionModal = document.getElementById("completionModal");
+const albumModal = document.getElementById("albumModal");
+const letterModal = document.getElementById("letterModal");
+const albumGrid = document.getElementById("albumGrid");
+const chapterName = document.getElementById("chapterName");
+const loadingScreen = document.getElementById("loadingScreen");
+const loadingPercent = document.getElementById("loadingPercent");
 const progressText = document.getElementById("progressText");
 const progressBar = document.getElementById("progressBar");
 const liveRegion = document.getElementById("liveRegion");
 const clickHint = document.getElementById("clickHint");
-const visitedWishes = new Set();
-let completionShown = false;
+const STORAGE_KEY = "dem-trang-gui-em-progress-v1";
+let savedProgress = [];
+try { savedProgress = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch (_) {}
+const visitedWishes = new Set(savedProgress.filter((index) => Number.isInteger(index) && index >= 0 && index < wishList.length));
+let completionShown = visitedWishes.size === wishList.length;
 let lastFocusedElement = null;
 let typingTimer = null;
 
-wishList.forEach(({ img }) => {
+wishList.slice(0, 2).forEach(({ thumb: img }) => {
   const preload = new Image();
   preload.src = img;
 });
@@ -986,6 +1044,7 @@ function onPointerDown(event) {
 function onPointerUp(event) {
   if (event.target.closest("button") || event.target.closest(".wish-modal") ||
       event.target.closest(".info-modal") || event.target.closest(".completion-modal") ||
+      event.target.closest(".album-modal") || event.target.closest(".letter-modal") ||
       !welcomeScreen.classList.contains("hidden"))
     return;
 
@@ -1058,6 +1117,48 @@ function resetCamera() {
   selectedLantern = null;
 }
 
+function renderAlbum() {
+  albumGrid.innerHTML = "";
+  wishList.forEach((wish, index) => {
+    const unlocked = visitedWishes.has(index);
+    const item = document.createElement("button");
+    item.className = `album-item${unlocked ? "" : " locked"}`;
+    item.style.setProperty("--tilt", `${[-2.2, 1.4, -1, 2][index % 4]}deg`);
+    item.type = "button";
+    item.setAttribute("aria-label", unlocked ? `Mở kỷ niệm ${index + 1}: ${wish.title}` : `Kỷ niệm ${index + 1} chưa được khám phá`);
+    item.disabled = !unlocked;
+    if (unlocked) {
+      const image = document.createElement("img");
+      image.src = wish.thumb;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      item.append(image);
+      item.addEventListener("click", () => {
+        closeModal(albumModal);
+        const lantern = lanterns.find((entry) => entry.userData.wishIndex === index);
+        if (lantern) openWish(lantern);
+      });
+    }
+    const label = document.createElement("span");
+    label.textContent = unlocked ? `${String(index + 1).padStart(2, "0")} · ${wish.title}` : `${String(index + 1).padStart(2, "0")} · Chưa mở`;
+    item.append(label);
+    albumGrid.append(item);
+  });
+}
+
+function openModal(modal) {
+  lastFocusedElement = document.activeElement;
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden", "false");
+  setTimeout(() => modal.querySelector("button")?.focus(), reduceMotion ? 0 : 250);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
+}
+
 function updateProgress() {
   const count = visitedWishes.size;
   progressText.textContent = `${count} / ${wishList.length}`;
@@ -1067,6 +1168,14 @@ function updateProgress() {
   blossomMat.opacity = .72 + count * .035;
   treeLight.intensity = 2.5 + count * .16;
   scene.fog.density = Math.max(.0055,.008-count*.0003);
+  const chapter = count >= 14 ? "Hành trình đã trọn vẹn" : count >= 10 ? "Chương III · Phía trước" : count >= 5 ? "Chương II · Tuổi trẻ" : "Chương I · Dịu dàng";
+  if (chapterName.textContent !== chapter) {
+    chapterName.textContent = chapter;
+    chapterName.closest(".progress-card").classList.remove("chapter-change");
+    requestAnimationFrame(() => chapterName.closest(".progress-card").classList.add("chapter-change"));
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...visitedWishes].sort((a,b) => a-b)));
+  renderAlbum();
   liveRegion.textContent = `Đã khám phá ${count} trên ${wishList.length} lời chúc.`;
   if (count > 0) clickHint.style.opacity = "0";
   if (count >= 5 && !moonDeer.visible) {
@@ -1076,7 +1185,8 @@ function updateProgress() {
   }
 }
 
-function markWishVisited(index) {
+function markWishVisited(index, silent = false) {
+  const wasVisited = visitedWishes.has(index);
   visitedWishes.add(index);
   lanterns.filter((lantern) => lantern.userData.wishIndex === index).forEach((lantern) => {
     lantern.userData.visited = true;
@@ -1086,18 +1196,26 @@ function markWishVisited(index) {
     lantern.userData.glow.material.opacity = 0.95;
   });
   updateProgress();
+  if (!silent && !wasVisited && (visitedWishes.size === 5 || visitedWishes.size === 10)) {
+    liveRegion.textContent = visitedWishes.size === 5 ? "Chương hai đã mở: Tuổi trẻ của em." : "Chương ba đã mở: Những ngày phía trước.";
+    playEffect(620, .28, .014);
+  }
 }
 
 function openWish(lantern) {
   const index = lantern.userData.wishIndex;
   lastFocusedElement = document.activeElement;
   markWishVisited(index);
+  wishTitle.textContent = lantern.userData.title;
+  wishChapter.textContent = lantern.userData.chapter;
   typeWish(`“${lantern.userData.wish}”`);
   wishNumber.textContent = `${String(index + 1).padStart(2, "0")} / ${String(wishList.length).padStart(2, "0")}`;
   wishImage.classList.remove("loaded");
   wishImage.alt = `Kỷ niệm số ${index + 1} trong hành trình lời chúc`;
   wishImage.src = lantern.userData.imgUrl;
   wishImage.parentElement.style.setProperty("--wish-bg", `url("${lantern.userData.imgUrl}")`);
+  const nextImage = new Image();
+  nextImage.src = wishList[(index + 1) % wishList.length].img;
   if (wishImage.complete) requestAnimationFrame(() => wishImage.classList.add("loaded"));
   wishModal.classList.add("active");
   playEffect(760,.16,.012);
@@ -1150,10 +1268,13 @@ window.addEventListener("keydown", (e) => {
     if (wishModal.classList.contains("active")) closeWishCard();
     helpModal.classList.remove("active");
     completionModal.classList.remove("active");
+    closeModal(albumModal);
+    closeModal(letterModal);
   }
   if (e.key === "Enter" && welcomeScreen.classList.contains("hidden") &&
       !wishModal.classList.contains("active") && !helpModal.classList.contains("active") &&
-      !completionModal.classList.contains("active") && document.activeElement === document.body) {
+      !completionModal.classList.contains("active") && !albumModal.classList.contains("active") &&
+      !letterModal.classList.contains("active") && document.activeElement === document.body) {
     const nextIndex = wishList.findIndex((_, index) => !visitedWishes.has(index));
     const lantern = lanterns.find((item) => item.userData.wishIndex === (nextIndex < 0 ? 0 : nextIndex));
     if (lantern) { selectedLantern = lantern; openWish(lantern); }
@@ -1202,7 +1323,7 @@ function showCompletion() {
   for (let i = 0; i < finaleTypes.length; i++) {
     setTimeout(() => createFirework(new THREE.Vector3((Math.random() - .5) * 24, 14 + Math.random() * 11, -4 + (Math.random() - .5) * 8),finaleTypes[i]), i * 260);
   }
-  document.getElementById("continueBtn").focus();
+  document.getElementById("openLetterBtn").focus();
 }
 
 document.getElementById("startBtn").addEventListener("click", () => enterGarden(true));
@@ -1212,6 +1333,7 @@ document.getElementById("reset-cam-btn").addEventListener("click", resetCamera);
 document.getElementById("helpBtn").addEventListener("click", () => {
   helpModal.classList.add("active"); helpModal.setAttribute("aria-hidden", "false");
 });
+document.getElementById("albumBtn").addEventListener("click", () => { renderAlbum(); openModal(albumModal); });
 document.getElementById("tourBtn").addEventListener("click",()=>{
   autoTour=!autoTour;controls.enabled=!autoTour;
   const button=document.getElementById("tourBtn");button.setAttribute("aria-pressed",String(autoTour));button.setAttribute("aria-label",autoTour?"Tắt chế độ tự động tham quan":"Bật chế độ tự động tham quan");
@@ -1223,6 +1345,61 @@ document.querySelector('[data-close="helpModal"]').addEventListener("click", () 
 helpModal.addEventListener("click", (e) => { if (e.target === helpModal) e.currentTarget.classList.remove("active"); });
 document.getElementById("continueBtn").addEventListener("click", () => {
   completionModal.classList.remove("active"); completionModal.setAttribute("aria-hidden", "true");
+});
+document.getElementById("openLetterBtn").addEventListener("click", () => {
+  closeModal(completionModal);
+  openModal(letterModal);
+});
+document.getElementById("openAlbumFromLetter").addEventListener("click", () => {
+  closeModal(letterModal);
+  renderAlbum();
+  openModal(albumModal);
+});
+document.querySelectorAll('[data-close="albumModal"], [data-close="letterModal"]').forEach((button) => {
+  button.addEventListener("click", () => closeModal(document.getElementById(button.dataset.close)));
+});
+[albumModal, letterModal].forEach((modal) => modal.addEventListener("click", (event) => {
+  if (event.target === modal) closeModal(modal);
+}));
+document.getElementById("resetJourneyBtn").addEventListener("click", () => {
+  visitedWishes.clear();
+  completionShown = false;
+  moonDeer.visible = false;
+  lanterns.forEach((lantern) => {
+    const palette = lanternPalettes[lantern.userData.paletteIndex];
+    lantern.userData.visited = false;
+    lantern.userData.bodyMat.emissive.setHex(palette.glow);
+    lantern.userData.bodyMat.emissiveIntensity = .58;
+    lantern.userData.glow.material.color.setHex(palette.glow);
+    lantern.userData.glow.material.opacity = .7;
+  });
+  updateProgress();
+  clickHint.style.opacity = "1";
+  liveRegion.textContent = "Hành trình đã được bắt đầu lại.";
+});
+
+if (visitedWishes.size >= 5) moonDeer.visible = true;
+lanterns.forEach((lantern) => {
+  if (!visitedWishes.has(lantern.userData.wishIndex)) return;
+  lantern.userData.visited = true;
+  lantern.userData.bodyMat.emissive.setHex(0xffc533);
+  lantern.userData.bodyMat.emissiveIntensity = 1.25;
+  lantern.userData.glow.material.color.setHex(0xffe580);
+  lantern.userData.glow.material.opacity = .95;
+});
+updateProgress();
+
+let loadValue = 12;
+const loadTimer = setInterval(() => {
+  loadValue = Math.min(92, loadValue + Math.ceil((92 - loadValue) * .16));
+  loadingPercent.textContent = `${loadValue}%`;
+  loadingScreen.querySelector(".loading-moon").style.setProperty("--load", `${loadValue}%`);
+}, 90);
+window.addEventListener("load", () => {
+  clearInterval(loadTimer);
+  loadingPercent.textContent = "100%";
+  loadingScreen.querySelector(".loading-moon").style.setProperty("--load", "100%");
+  setTimeout(() => loadingScreen.classList.add("hidden"), 260);
 });
 document.getElementById("fullscreenBtn").addEventListener("click", async () => {
   try {
