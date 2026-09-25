@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080310">
-    <title>Đêm Trăng Gửi Em</title>
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <meta name="description" content="Một khu vườn Trung Thu 3D dành riêng cho Nguyễn Vũ Thảo Trâm.">
+    <meta name="referrer" content="no-referrer">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <title>Đêm Trăng Gửi Nguyễn Vũ Thảo Trâm</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -17,14 +21,14 @@
     </div>
     <section class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
         <div class="welcome-moon" aria-hidden="true"></div><div class="welcome-content">
-            <p class="eyebrow">Một món quà nhỏ dưới ánh trăng</p><h1 id="welcomeTitle">Đêm Trăng <span>Gửi Em</span></h1>
-            <p>Anh đã giấu 14 điều muốn gửi đến em trong khu vườn này. Hãy chạm vào từng chiếc đèn lồng để khám phá nhé.</p>
+            <p class="eyebrow">Một món quà nhỏ dành riêng cho</p><h1 id="welcomeTitle">Nguyễn Vũ <span>Thảo Trâm</span></h1>
+            <p>Anh đã giấu 14 điều muốn gửi đến <strong class="recipient-inline">Thảo Trâm</strong> trong khu vườn này. Hãy chạm vào từng chiếc đèn lồng để khám phá nhé.</p>
             <button class="primary-btn" id="startBtn">Bắt đầu khám phá</button><button class="text-btn" id="skipIntroBtn">Vào thẳng khu vườn</button>
             <small class="headphone-note">Đeo tai nghe để cảm nhận trọn vẹn hơn</small>
         </div>
     </section>
     <header class="hud" aria-label="Trạng thái khám phá">
-        <div class="brand-mark"><span class="brand-moon" aria-hidden="true"></span><div><span>Đêm trăng</span><strong>Gửi Em</strong></div></div>
+        <div class="brand-mark"><span class="brand-moon" aria-hidden="true"></span><div><span>Đêm trăng gửi</span><strong id="brandRecipient">Thảo Trâm</strong></div></div>
         <div class="progress-card" aria-live="polite"><div class="progress-copy"><span id="chapterName">Chương I · Dịu dàng</span><strong id="progressText">0 / 14</strong></div><div class="progress-track"><span id="progressBar"></span></div></div>
     </header>
     <nav class="top-bar" aria-label="Điều khiển cảnh">
@@ -36,6 +40,7 @@
         <button class="icon-btn" id="fullscreenBtn" title="Toàn màn hình" aria-label="Bật chế độ toàn màn hình"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
     </nav>
     <div class="click-hint" id="clickHint"><span aria-hidden="true"></span> Chạm vào một chiếc đèn lồng</div>
+    <div class="chapter-transition" id="chapterTransition" aria-hidden="true"><span id="chapterTransitionKicker">Chương II</span><strong id="chapterTransitionTitle">Tuổi trẻ của em</strong></div>
     <div class="wish-modal" id="wishModal" role="dialog" aria-modal="true" aria-labelledby="wishTitle" aria-hidden="true"><article class="wish-card">
         <div class="card-ornament ornament-left" aria-hidden="true">☾</div><div class="card-ornament ornament-right" aria-hidden="true">✦</div>
         <button class="close-btn" id="closeWishBtn" aria-label="Đóng lời chúc"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
@@ -52,14 +57,14 @@
         <p>Chạm vào đèn lồng để mở lời chúc. Em cũng có thể chạm vào thỏ ngọc và cá chép để tìm hiệu ứng bí mật. Kéo để xoay cảnh, cuộn hoặc chụm để phóng to.</p><p class="keyboard-note">Bàn phím: <kbd>Enter</kbd> mở lời chúc tiếp theo · <kbd>Esc</kbd> đóng thiệp</p>
     </div></div>
     <div class="completion-modal" id="completionModal" role="dialog" aria-modal="true" aria-labelledby="completionTitle" aria-hidden="true"><div class="completion-card">
-        <div class="completion-glow" aria-hidden="true"></div><p class="eyebrow">Em đã tìm thấy tất cả</p><h2 id="completionTitle">Trăng đã tròn rồi</h2>
+        <div class="completion-glow" aria-hidden="true"></div><p class="eyebrow">Em đã tìm thấy tất cả</p><h2 id="completionTitle">Trăng đã tròn rồi</h2><strong class="finale-name" id="finaleName">Nguyễn Vũ Thảo Trâm</strong>
         <p>Mười bốn chiếc đèn, mười bốn lời chúc — mong mọi dịu dàng và may mắn đều sẽ tìm đến em.</p><button class="primary-btn" id="openLetterBtn">Mở lá thư cuối cùng</button><button class="text-btn" id="continueBtn">Ngắm khu vườn thêm chút nữa</button>
     </div></div>
     <div class="letter-modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterTitle" aria-hidden="true"><article class="letter-card">
-        <button class="close-btn" data-close="letterModal" aria-label="Đóng lá thư">×</button><p class="eyebrow">Lá thư dưới ánh trăng</p><h2 id="letterTitle">Gửi em,</h2>
+        <button class="close-btn" data-close="letterModal" aria-label="Đóng lá thư">×</button><p class="eyebrow">Lá thư dưới ánh trăng</p><h2 id="letterTitle">Gửi Thảo Trâm,</h2>
         <p>Cảm ơn em vì đã đi hết khu vườn nhỏ này. Anh không biết những ngày phía trước sẽ mang đến điều gì, chỉ mong em luôn giữ được nụ cười, sự dịu dàng và ánh sáng rất riêng của mình.</p>
         <p>Nếu có lúc mệt mỏi, hãy nhớ rằng em xứng đáng với những điều chân thành, bình yên và tốt đẹp nhất.</p><p class="letter-signature">— Một lời chúc dành riêng cho em</p>
-        <button class="primary-btn" id="openAlbumFromLetter">Xem lại album 14 kỷ niệm</button>
+        <div class="letter-actions"><button class="primary-btn" id="openAlbumFromLetter">Xem lại album</button><button class="secondary-btn" id="shareGiftBtn">Chia sẻ món quà</button></div><p class="share-status" id="shareStatus" aria-live="polite"></p>
     </article></div>
     <div class="sr-only" id="liveRegion" aria-live="polite"></div><audio id="bgm" loop preload="metadata" src="./assets/1.mp3"></audio>
     <script src="./assets/three.min.js"></script><script src="./assets/OrbitControls.js"></script><script src="./assets/GLTFLoader.js"></script><script src="./assets/script.js"></script>

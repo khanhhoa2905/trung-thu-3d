@@ -1,0 +1,10 @@
+{
+  "name": "Đêm Trăng Gửi Nguyễn Vũ Thảo Trâm",
+  "short_name": "Đêm Trăng",
+  "description": "Một khu vườn Trung Thu 3D với 14 lời chúc.",
+  "lang": "vi",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080310",
+  "theme_color": "#080310"
+}

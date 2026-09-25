@@ -1,3 +1,24 @@
+const params = new URLSearchParams(window.location.search);
+const defaultRecipient = "Nguyễn Vũ Thảo Trâm";
+const requestedRecipient = (params.get("name") || defaultRecipient).trim().replace(/\s+/g, " ").slice(0, 60);
+const recipientName = requestedRecipient || defaultRecipient;
+const recipientParts = recipientName.split(" ");
+const recipientShortName = recipientParts.slice(-2).join(" ");
+const siteConfig = Object.freeze({
+  recipientName,
+  recipientShortName,
+  totalWishes: 14,
+  storageKey: `dem-trang-gui-em-${recipientName.toLocaleLowerCase("vi").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]+/g, "-")}`,
+});
+
+document.title = `Đêm Trăng Gửi ${siteConfig.recipientName}`;
+document.querySelector("meta[name='description']")?.setAttribute("content", `Một khu vườn Trung Thu 3D dành riêng cho ${siteConfig.recipientName}.`);
+document.querySelector("#welcomeTitle")?.replaceChildren(document.createTextNode(`${recipientParts.slice(0, -2).join(" ")} `), Object.assign(document.createElement("span"), { textContent: recipientShortName }));
+document.querySelector(".recipient-inline").textContent = recipientShortName;
+document.getElementById("brandRecipient").textContent = recipientShortName;
+document.getElementById("finaleName").textContent = recipientName;
+document.getElementById("letterTitle").textContent = `Gửi ${recipientShortName},`;
+
 const container = document.getElementById("webgl-container");
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -5,9 +26,11 @@ const isMobile =
   ) || window.innerWidth < 768;
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 let reduceMotion = motionPreference.matches;
+let pageVisible = !document.hidden;
 motionPreference.addEventListener("change", (event) => {
   reduceMotion = event.matches;
 });
+document.addEventListener("visibilitychange", () => { pageVisible = !document.hidden; });
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x060312, 0.008);
@@ -1019,7 +1042,7 @@ const progressText = document.getElementById("progressText");
 const progressBar = document.getElementById("progressBar");
 const liveRegion = document.getElementById("liveRegion");
 const clickHint = document.getElementById("clickHint");
-const STORAGE_KEY = "dem-trang-gui-em-progress-v1";
+const STORAGE_KEY = `${siteConfig.storageKey}-progress-v2`;
 let savedProgress = [];
 try { savedProgress = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch (_) {}
 const visitedWishes = new Set(savedProgress.filter((index) => Number.isInteger(index) && index >= 0 && index < wishList.length));
@@ -1159,6 +1182,20 @@ function closeModal(modal) {
   modal.setAttribute("aria-hidden", "true");
 }
 
+let chapterTransitionTimer = null;
+function showChapterTransition(number, title) {
+  const transition = document.getElementById("chapterTransition");
+  document.getElementById("chapterTransitionKicker").textContent = `Chương ${number}`;
+  document.getElementById("chapterTransitionTitle").textContent = title;
+  clearTimeout(chapterTransitionTimer);
+  transition.classList.add("active");
+  transition.setAttribute("aria-hidden", "false");
+  chapterTransitionTimer = setTimeout(() => {
+    transition.classList.remove("active");
+    transition.setAttribute("aria-hidden", "true");
+  }, reduceMotion ? 900 : 2400);
+}
+
 function updateProgress() {
   const count = visitedWishes.size;
   progressText.textContent = `${count} / ${wishList.length}`;
@@ -1197,7 +1234,9 @@ function markWishVisited(index, silent = false) {
   });
   updateProgress();
   if (!silent && !wasVisited && (visitedWishes.size === 5 || visitedWishes.size === 10)) {
-    liveRegion.textContent = visitedWishes.size === 5 ? "Chương hai đã mở: Tuổi trẻ của em." : "Chương ba đã mở: Những ngày phía trước.";
+    const isSecondChapter = visitedWishes.size === 5;
+    liveRegion.textContent = isSecondChapter ? "Chương hai đã mở: Tuổi trẻ của em." : "Chương ba đã mở: Những ngày phía trước.";
+    showChapterTransition(isSecondChapter ? "II" : "III", isSecondChapter ? "Tuổi trẻ của em" : "Những ngày phía trước");
     playEffect(620, .28, .014);
   }
 }
@@ -1355,6 +1394,25 @@ document.getElementById("openAlbumFromLetter").addEventListener("click", () => {
   renderAlbum();
   openModal(albumModal);
 });
+document.getElementById("shareGiftBtn").addEventListener("click", async () => {
+  const shareStatus = document.getElementById("shareStatus");
+  const shareData = {
+    title: `Đêm Trăng Gửi ${siteConfig.recipientName}`,
+    text: `Một món quà dưới ánh trăng dành riêng cho ${siteConfig.recipientName}.`,
+    url: window.location.href.replace(/[?&]preview(?:=[^&]*)?/g, "").replace(/[?&]$/, ""),
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      shareStatus.textContent = "Món quà đã sẵn sàng để gửi đi.";
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      shareStatus.textContent = "Đã sao chép đường link món quà.";
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") shareStatus.textContent = "Hãy sao chép đường link trên thanh địa chỉ để gửi nhé.";
+  }
+});
 document.querySelectorAll('[data-close="albumModal"], [data-close="letterModal"]').forEach((button) => {
   button.addEventListener("click", () => closeModal(document.getElementById(button.dataset.close)));
 });
@@ -1409,12 +1467,16 @@ document.getElementById("fullscreenBtn").addEventListener("click", async () => {
 });
 if (!document.documentElement.requestFullscreen) document.getElementById("fullscreenBtn").hidden = true;
 if (new URLSearchParams(window.location.search).has("preview")) enterGarden(false);
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
 
 // ANIMATION
 const clock = new THREE.Clock();
 
 function animate() {
   requestAnimationFrame(animate);
+  if (!pageVisible) { clock.getDelta(); return; }
   const delta = clock.getDelta();
   const time = clock.getElapsedTime();
 
