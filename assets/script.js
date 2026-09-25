@@ -483,32 +483,60 @@ const interactiveObjects = [];
 
 const wishList = [
   {
-    text: "Chúc cậu luôn xinh đẹp, rạng rỡ và dịu dàng như ánh trăng đêm rằm.",
-    img: "./assets/1790230176635_118967847828258086_4221998383065855767_e339734ff5d92d896379c397e67b7ae3.jpg",
+    text: "Chúc em luôn xinh đẹp, rạng rỡ và dịu dàng như ánh trăng đêm rằm.",
+    img: "./assets/790505774_1969780453639423_2351601990590820278_n.jpg",
   },
   {
-    text: "Mong mọi khoảnh khắc của cậu đều bình yên, ngọt ngào và đầy ắp niềm vui.",
-    img: "./assets/1790230228219_118967847828258086_4221998383065855767_4d7795de414eebb86463eb202d3cd8b8.jpg",
+    text: "Mong mỗi ngày của em đều bắt đầu bằng nụ cười và kết thúc bằng sự bình yên.",
+    img: "./assets/748648642_1912929969324472_4283812412863960251_n.jpg",
   },
   {
-    text: "Chúc cậu có thật nhiều chuyến đi đáng nhớ và luôn tìm thấy bình yên trong tim.",
-    img: "./assets/1790230228253_118967847828258086_4221998383065855767_96e79df0302250863d245766c09db6a9.jpg",
+    text: "Chúc em có thật nhiều chuyến đi đáng nhớ và luôn tìm thấy bình yên trong tim.",
+    img: "./assets/562398733_1705818910035580_4055134451407334506_n.jpg",
   },
   {
-    text: "Chúc cậu luôn tự tin, duyên dáng và tỏa sáng theo cách riêng của mình.",
-    img: "./assets/1790230248353_118967847828258086_4221998383065855767_06daf76b6290d7932135fbca01d2f9e1.jpg",
+    text: "Chúc em luôn tự tin, duyên dáng và tỏa sáng theo cách riêng của mình.",
+    img: "./assets/547510736_1677034496247355_7501700853689931103_n.jpg",
   },
   {
-    text: "Mong những điều cậu ước sẽ dần thành hiện thực, mỗi ngày đều có thêm một niềm vui.",
-    img: "./assets/1790230267044_118967847828258086_4221998383065855767_a51cc7bfc563874e3c34ecfae6ada74d.jpg",
+    text: "Mong những điều em ước sẽ dần thành hiện thực, mỗi ngày đều có thêm một niềm vui.",
+    img: "./assets/544501909_1672389500045188_5411464870582497815_n.jpg",
   },
   {
-    text: "Chúc cậu luôn giữ nụ cười trong veo và gặp thật nhiều người yêu thương mình.",
-    img: "./assets/1790230285115_118967847828258086_4221998383065855767_94d2fc384dcab08aa99597a5943b6916.jpg",
+    text: "Chúc em luôn giữ được nụ cười trong veo và gặp thật nhiều người yêu thương mình.",
+    img: "./assets/518293069_1631798874104251_5719775899826623978_n.jpg",
   },
   {
-    text: "Chúc cậu một mùa Trung Thu ấm áp, hạnh phúc và luôn có người cùng sẻ chia.",
-    img: "./assets/1790230304906_118967847828258086_4221998383065855767_179fa5376defa39415fd1c10edd6f833.jpg",
+    text: "Chúc em một mùa Trung Thu ấm áp, hạnh phúc và luôn có người cùng sẻ chia.",
+    img: "./assets/513676360_1621258948491577_1100841702924691780_n.jpg",
+  },
+  {
+    text: "Mong em luôn mạnh mẽ trước những thử thách và dịu dàng với chính mình.",
+    img: "./assets/503266223_1602504610367011_56706203974894414_n.jpg",
+  },
+  {
+    text: "Chúc con đường em chọn luôn có ánh sáng, may mắn và những người tốt đồng hành.",
+    img: "./assets/480575865_1532812224002917_1857782877816294012_n.jpg",
+  },
+  {
+    text: "Mong em được làm những điều mình yêu và yêu những ngày tháng mình đang sống.",
+    img: "./assets/471161303_1494252967858843_8963984754878209320_n.jpg",
+  },
+  {
+    text: "Chúc em luôn được lắng nghe, được thấu hiểu và được trân trọng thật lòng.",
+    img: "./assets/470887071_1494248127859327_4035545798189428792_n.jpg",
+  },
+  {
+    text: "Mong tuổi trẻ của em có thật nhiều kỷ niệm đẹp để sau này nhớ lại vẫn mỉm cười.",
+    img: "./assets/469927240_1487721968511943_8762961242817712732_n.jpg",
+  },
+  {
+    text: "Chúc em sức khỏe, an nhiên và luôn giữ trong tim một khoảng trời đầy hy vọng.",
+    img: "./assets/469911422_1487351158549024_3646512257413966043_n.jpg",
+  },
+  {
+    text: "Lời chúc cuối cùng: mong em luôn hạnh phúc, không chỉ đêm nay mà trong mọi ngày phía trước.",
+    img: "./assets/469738291_1487354625215344_1751052271147498175_n.jpg",
   },
 ];
 
@@ -717,7 +745,7 @@ for (let i = 0; i < lanternCount; i++) {
 
   lantern.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
 
-  // Phân bổ tuần tự để cả 7 ảnh và lời chúc đều chắc chắn xuất hiện.
+  // Phân bổ tuần tự để cả 14 ảnh và lời chúc đều chắc chắn xuất hiện.
   const wishData = wishList[i % wishList.length];
 
   lantern.userData = {
@@ -843,9 +871,10 @@ const starMat = new THREE.PointsMaterial({
 });
 scene.add(new THREE.Points(starGeo, starMat));
 
-// SEVEN-STAR CONSTELLATION REVEALED WITH THE WISHES
+// FOURTEEN-STAR CONSTELLATION REVEALED WITH THE WISHES
 const constellationPoints = [
-  [-13,24,-38],[-9,27,-38],[-5,24,-38],[-1,28,-38],[3,24,-38],[7,27,-38],[11,24,-38],
+  [-13,25,-38],[-11,28,-38],[-8,29,-38],[-5,27,-38],[-2,23,-38],[0,19,-38],[2,23,-38],
+  [5,27,-38],[8,29,-38],[11,28,-38],[13,25,-38],[9,20,-38],[5,16,-38],[0,12,-38],
 ].map((p)=>new THREE.Vector3(...p));
 const constellationGeo = new THREE.BufferGeometry().setFromPoints(constellationPoints);
 const constellationMat = new THREE.LineBasicMaterial({color:0xffd987,transparent:true,opacity:.08});
@@ -987,7 +1016,7 @@ function onPointerUp(event) {
       const worldPos = new THREE.Vector3(); hitMesh.getWorldPosition(worldPos);
       createFirework(worldPos.clone().add(new THREE.Vector3(0, 1.5, 0)));
       hitMesh.parent.userData.boostUntil = clock.getElapsedTime() + 1.2;
-      liveRegion.textContent = "Thỏ ngọc vừa gửi cậu một chút may mắn!";
+      liveRegion.textContent = "Thỏ ngọc vừa gửi em một chút may mắn!";
       return;
     }
     if (hitMesh.userData.action === "koi") {
